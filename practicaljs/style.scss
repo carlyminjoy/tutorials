@@ -111,17 +111,12 @@ button:hover {
 }
 
 .addTodos {
-    display: flex;
     margin-top: 1rem;
-    width: 100%;
-    input {
-        flex-grow: 1;
-    }
 }
 
 .buttons {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
     margin-top: 0;
     padding-top: 0;
 }

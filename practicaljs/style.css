@@ -72,15 +72,9 @@ button:hover {
   background: #677077; }
 
 .addTodos {
-  display: flex;
-  margin-top: 1rem;
-  width: 100%; }
-  .addTodos input {
-    flex-grow: 1; }
+  margin-top: 1rem; }
 
 .buttons {
-  display: flex;
-  justify-content: space-between;
   margin-top: 0;
   padding-top: 0; }
 
