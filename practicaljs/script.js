@@ -6,9 +6,9 @@ var todoList = {
       completed: false
     });
   },
-  changeTodo: function(position, todoText) {
-    this.todos[position].todoText = todoText;
-  },
+  // changeTodo: function(position, todoText) {
+  //   this.todos[position].todoText = todoText;
+  // },
   deleteTodo: function(position) {
     this.todos.splice(position, 1);
   },
@@ -39,21 +39,19 @@ var handlers = {
     addTodoTextInput.value = "";
     view.displayTodos();
   },
-  changeTodo: function() {
-    var changeTodoTextInput = document.getElementById('changeTodoTextInput');
-    var changeTodoPositionInput = document.getElementById('changeTodoPositionInput')
-    todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
-    changeTodoTextInput.value, changeTodoPositionInput.value = "";
-    view.displayTodos();
-  },
+  // changeTodo: function() {
+  //   var changeTodoTextInput = document.getElementById('changeTodoTextInput');
+  //   var changeTodoPositionInput = document.getElementById('changeTodoPositionInput')
+  //   todoList.changeTodo(changeTodoPositionInput.valueAsNumber, changeTodoTextInput.value);
+  //   changeTodoTextInput.value, changeTodoPositionInput.value = "";
+  //   view.displayTodos();
+  // },
   deleteTodo: function(position) {
     todoList.deleteTodo(position);
     view.displayTodos();
   },
-  toggleCompleted: function() {
-    var toggleTodoPositionInput = document.getElementById('toggleTodoPositionInput');
-    todoList.toggleCompleted(toggleTodoPositionInput.valueAsNumber);
-    toggleTodoPositionInput.value = "";
+  toggleCompleted: function(position) {
+    todoList.toggleCompleted(position);
     view.displayTodos();
   },
   toggleAll: function() {
@@ -63,26 +61,50 @@ var handlers = {
 };
 
 var view = {
-  displayTodos: function() {
+  displayTodos: function(filter) {
     var todosUl = document.querySelector('ul');
+    var showTodos;
+
+    showTodos = todoList.todos.filter(function(todo) {
+      if (filter === 'active') {
+        return (!todo.completed);
+      } else if (filter === 'completed') {
+        return (todo.completed);
+      } else {
+        return todo;
+      }
+    });
+
     todosUl.innerHTML = '';
 
-    todoList.todos.forEach(function(todo, i) {
+    showTodos.forEach(function(todo, i) {
       var todoLi = document.createElement('li');
-      var checkbox = (todo.completed) ? '(x) ' : '( ) ';
+      var buttons = document.createElement('p');
 
+      todoLi.className = (todo.completed) ? 'completed' : 'notCompleted';
       todoLi.id = i;
-      todoLi.textContent = checkbox + todo.todoText;
-      todoLi.appendChild(this.createDeleteButton());
+
+      todoLi.textContent = todo.todoText;
+      buttons.appendChild(this.createDeleteButton());
+      // if (!todo.completed) {
+      //   buttons.appendChild(this.createEditButton());
+      // }
+      todoLi.appendChild(buttons);
       todosUl.appendChild(todoLi);
     }, this);
   },
   createDeleteButton: function() {
     var deleteButton = document.createElement('button');
-    deleteButton.textContent = ' X ';
+    deleteButton.textContent = "X";
     deleteButton.className = 'deleteButton';
     return deleteButton;
   },
+  // createEditButton: function() {
+  //   var editButton = document.createElement('button');
+  //   editButton.textContent = "Edit";
+  //   editButton.className = 'editButton';
+  //   return editButton;
+  // },
   setUpEventListeners: function() {
     var todosUL = document.querySelector('ul');
 
@@ -90,7 +112,16 @@ var view = {
       var elementClicked = event.target;
 
       if (elementClicked.className === 'deleteButton') {
-        handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
+        handlers.deleteTodo(parseInt(elementClicked.parentNode.parentNode.id));
+      }
+
+      // if (elementClicked.className === 'editButton') {
+      //   handlers.changeTodo(parseInt(elementClicked.parentNode.parentNode.id));
+      // }
+
+      if (elementClicked.className === 'completed' ||
+          elementClicked.className === 'notCompleted') {
+        handlers.toggleCompleted(parseInt(elementClicked.id));
       }
     });
   }
