@@ -1,3 +1,5 @@
+// Original styles created for app
+
 // color scheme
 $base: #4DE7B4;
 $accent: #FD3272;
@@ -9,6 +11,16 @@ $bgLight: #E5E5E5;
 $fontFamily: helvetica;
 $fontSize: 12px;
 $fontColor: #292b2c;
+
+// flex space around
+
+.flexSA {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
 
 .font {
     color: $fontColor;
@@ -44,10 +56,72 @@ body {
         border: none;
         border-radius: 5px;
     }
+    ul {
+        display: flex;
+        flex-direction: column;
+    }
     li {
-        background: $accent;
+        // background: $accent;
         color: #fff;
         list-style: none;
         margin-bottom: 1rem;
     }
+}
+
+// Custom classes
+
+.completed {
+    @extend .flexSA;
+    background-color: $base;
+    font-style: italic;
+    text-decoration: line-through;
+    order: 1;
+    -webkit-order: 1;
+    transition: background-color 0.5s ease;
+    p button {
+        text-decoration: none;
+    }
+}
+
+.completed:hover {
+    background-color: lighten($base, 20);
+    transition: background-color 0.5s ease;
+}
+
+.notCompleted {
+    @extend .flexSA;
+    font-weight: bold;
+    background-color: $accent;
+    transition: background-color 0.5s ease;
+    order: 0;
+    -webkit-order: 0;
+}
+
+.notCompleted:hover {
+    background-color: lighten($accent, 20);
+    transition: background-color 0.5s ease;
+}
+
+.deleteButton, .editButton {
+    padding: 0 0.5rem;
+}
+
+button:hover {
+    background: $bgDark;
+}
+
+.addTodos {
+    display: flex;
+    margin-top: 1rem;
+    width: 100%;
+    input {
+        flex-grow: 1;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    padding-top: 0;
 }

@@ -1,3 +1,10 @@
+.flexSA, .completed, .notCompleted {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem; }
+
 .font, body {
   color: #292b2c;
   font-size: 12px;
@@ -25,10 +32,56 @@ body {
     line-height: 1.25rem;
     border: none;
     border-radius: 5px; }
+  body ul {
+    display: flex;
+    flex-direction: column; }
   body li {
-    background: #FD3272;
     color: #fff;
     list-style: none;
     margin-bottom: 1rem; }
+
+.completed {
+  background-color: #4DE7B4;
+  font-style: italic;
+  text-decoration: line-through;
+  order: 1;
+  -webkit-order: 1;
+  transition: background-color 0.5s ease; }
+  .completed p button {
+    text-decoration: none; }
+
+.completed:hover {
+  background-color: #a7f3da;
+  transition: background-color 0.5s ease; }
+
+.notCompleted {
+  font-weight: bold;
+  background-color: #FD3272;
+  transition: background-color 0.5s ease;
+  order: 0;
+  -webkit-order: 0; }
+
+.notCompleted:hover {
+  background-color: #fe97b7;
+  transition: background-color 0.5s ease; }
+
+.deleteButton, .editButton {
+  padding: 0 0.5rem; }
+
+button:hover {
+  background: #677077; }
+
+.addTodos {
+  display: flex;
+  margin-top: 1rem;
+  width: 100%; }
+  .addTodos input {
+    flex-grow: 1; }
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0;
+  padding-top: 0; }
 
 /*# sourceMappingURL=style.css.map */
